@@ -1,18 +1,72 @@
 <template>
   <div>
     <Hmhearder>登录</Hmhearder>
-    <div class="new">
-      <span class="iconfont iconnew"></span>
-    </div>
-     <div>
-        <HmLogo></HmLogo>
+    <HmLogo></HmLogo>
+     <van-form @submit="login">
+  <van-field
+    v-model="username"
+    name="用户名"
+    label="用户名"
+    placeholder="用户名"
+    :rules='rules.username'
+  />
+  <van-field
+    v-model="password"
+    type="password"
+    name="密码"
+    label="密码"
+    placeholder="密码"
+    :rules="rules.password"
+  />
+  <div style="margin: 16px;">
+    <van-button round block type="info" native-type="submit">
+      提交
+    </van-button>
+  </div>
+</van-form>
+     <div class="tishi">
+       没有账号?去
+       <router-link to='./Register'>注册</router-link>
      </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      username: '',
+      password: '',
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名/手机号', trigger: 'onChange' },
+          { pattern: /^\d{5,11}$/, message: '用户名长度是5-11位数字', trigger: 'onChange' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'onChange' },
+          { pattern: /^\d{3,9}$/, message: '用户名长度是3-9位数字', trigger: 'onChange' }
+        ]
+      }
+    }
+  },
+  methods: {
+    onSubmit (values) {
+      console.log('submit', values)
+    },
+    async login () {
+      const res = await this.$axios.post('http://127.0.0.1:3000/login', {
+        username: this.username,
+        password: this.password
+      })
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
+        this.$router.push('/user')
+      } else {
+        this.$toast.fail('登陆失败')
+      }
+    }
+  }
 }
 </script>
 
@@ -20,12 +74,12 @@ export default {
 body{
   background-color: rgb(245, 245, 245);
 }
-.new{
-  text-align: center;
-  margin: 15px 0;
-  .iconfont{
-  font-size: 130px;
-  color:rgb(216, 30, 6)
-}
+
+.tishi{
+  font-size: 15px;
+  text-align: right;
+  a{
+    color: orange;
+  }
 }
 </style>
