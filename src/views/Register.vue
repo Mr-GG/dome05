@@ -1,5 +1,5 @@
 <template>
-  <div>我是注册页面</div>
+    <Hmhearder>注册</Hmhearder>
 </template>
 
 <script>

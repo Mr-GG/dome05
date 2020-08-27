@@ -1,11 +1,12 @@
 <template>
-  <div>我是登录页面
-      <span class="iconfont icondianzan"></span>
-      <van-button type="primary">主要按钮</van-button>
-    <van-button type="info">信息按钮</van-button>
-    <van-button type="default">默认按钮</van-button>
-    <van-button type="warning">警告按钮</van-button>
-    <van-button type="danger">危险按钮</van-button>
+  <div>
+    <Hmhearder>登录</Hmhearder>
+    <div class="new">
+      <span class="iconfont iconnew"></span>
+    </div>
+     <div>
+        <HmLogo></HmLogo>
+     </div>
   </div>
 </template>
 
@@ -15,6 +16,16 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='less'>
+body{
+  background-color: rgb(245, 245, 245);
+}
+.new{
+  text-align: center;
+  margin: 15px 0;
+  .iconfont{
+  font-size: 130px;
+  color:rgb(216, 30, 6)
+}
+}
 </style>
