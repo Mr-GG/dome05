@@ -33,6 +33,11 @@
 
 <script>
 export default {
+  created () {
+    const { username, password } = this.$route.query
+    this.username = username
+    this.password = password
+  },
   data () {
     return {
       username: '',
@@ -50,16 +55,15 @@ export default {
     }
   },
   methods: {
-    onSubmit (values) {
-      console.log('submit', values)
-    },
     async login () {
-      const res = await this.$axios.post('http://127.0.0.1:3000/login', {
+      const res = await this.$axios.post('/login', {
         username: this.username,
         password: this.password
       })
-      const { statusCode, message } = res.data
+      const { statusCode, message, data } = res.data
       if (statusCode === 200) {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('userId', data.user.id)
         this.$toast.success(message)
         this.$router.push('/user')
       } else {
@@ -70,7 +74,7 @@ export default {
 }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 body{
   background-color: rgb(245, 245, 245);
 }

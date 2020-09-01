@@ -2,23 +2,23 @@
 <div>
  <Hmhearder>注册</Hmhearder>
 <HmLogo></HmLogo>
- <van-form @submit="login">
+ <van-form @submit="register">
   <van-field
-    v-model="username"
+    v-model="user.username"
     name="用户名"
     label="用户名"
     placeholder="请输入用户名/手机号"
     :rules='rules.username'
   />
   <van-field
-    v-model="nickname"
+    v-model="user.nickname"
     name="昵称"
     label="昵称"
     placeholder="昵称"
     :rules='rules.nickname'
   />
   <van-field
-    v-model="password"
+    v-model="user.password"
     type="password"
     name="密码"
     label="密码"
@@ -43,9 +43,11 @@
 export default {
   data () {
     return {
-      username: '',
-      password: '',
-      nickname: '',
+      user: {
+        username: '',
+        password: '',
+        nickname: ''
+      },
       rules: {
         username: [
           { required: true, message: '请输入用户名/手机号', trigger: 'onChange' },
@@ -57,25 +59,31 @@ export default {
         ],
         nickname: [
           { required: true, message: '请输入昵称', trigger: 'onChange' },
-          { pattern: /^\d{3,6}$/, message: '昵称长度是3-6位数字', trigger: 'onChange' }
+          { pattern: /^[\u4e00-\u9fa5]{1,5}$/, message: '昵称长度是1-5位汉子', trigger: 'onChange' }
         ]
       }
     }
   },
   methods: {
-    onSubmit (values) {
-      console.log('submit', values)
-    },
-    async login () {
-      const res = await this.$axios.post('/register', {
-        username: this.username,
-        password: this.password,
-        nickname: this.nickname
-      })
+    async register () {
+      const res = await this.$axios.post('/register', this.user)
       const { statusCode, message } = res.data
       if (statusCode === 200) {
         this.$toast.success(message)
-        this.$router.push('/register')
+        // this.$router.push({
+        //   path: '/login',
+        //   query: {
+        //     username: this.user.username,
+        //     password: this.user.password
+        //   }
+        // })
+        this.$router.push({
+          name: '/login',
+          params: {
+            username: this.user.username,
+            password: this.user.password
+          }
+        })
       } else {
         this.$toast.fail('注册失败')
       }
@@ -84,6 +92,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang='less'>
+.tishi{
+  font-size: 16px;
+  text-align: right;
+  a{
+    color: tomato;
+  }
+}
 </style>
