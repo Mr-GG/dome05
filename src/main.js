@@ -12,8 +12,9 @@ import './utils/global'
 import './utils/filter'
 // 全局导入vant
 import './utils/vant'
-// import { Button } from 'vant'
-// Vue.use(Button)
+// 创建一个bus
+const bus = new Vue()
+Vue.prototype.$bus = bus
 Vue.config.productionTip = false
 
 new Vue({

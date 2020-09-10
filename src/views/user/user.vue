@@ -18,9 +18,9 @@
         <span class="iconfont iconjiantou1"></span>
       </div>
     </div>
-        <HmNavItem to="/userEdit">我的关注<template #content>关注的用户</template></HmNavItem>
-        <HmNavItem>我的跟帖<template #content>跟帖/回复</template></HmNavItem>
-         <HmNavItem>我的收藏<template #content>文章/视频</template></HmNavItem>
+        <HmNavItem to="/MyFollow">我的关注<template #content>关注的用户</template></HmNavItem>
+        <HmNavItem to="/Mycomment">我的跟帖<template #content>跟帖/回复</template></HmNavItem>
+         <HmNavItem to="/MyStar">我的收藏<template #content>文章/视频</template></HmNavItem>
          <HmNavItem @click="tiaozhuan" to="./userEdit">设置</HmNavItem>
          <div class="bt">
             <van-button type="primary" size="large" >退出</van-button>

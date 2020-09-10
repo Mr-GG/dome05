@@ -24,7 +24,7 @@
             <van-field v-model="nickname" ref='nickname' placeholder="请输入用户名" />
             </van-dialog>
             <van-dialog v-model="isshowPassword" title="修改密码" show-cancel-button @confirm='updatepassword'>
-            <van-field v-model="Password" ref='ppassword' placeholder="请输入密码" />
+            <van-field v-model="Password" ref='password' placeholder="请输入密码" />
             </van-dialog>
             <van-dialog v-model="isShowGender" title="修改性别" show-cancel-button @confirm="updateGender">
       <!-- <van-radio-group v-model="gender">
@@ -145,7 +145,7 @@ export default {
       this.isshowPassword = true
       this.Password = this.user.Password
       await this.$nextTick()
-      this.$refs.ppassword.focus()
+      this.$refs.password.focus()
     },
     showGender () {
       this.isShowGender = true

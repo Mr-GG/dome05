@@ -61,11 +61,15 @@ export default {
         password: this.password
       })
       const { statusCode, message, data } = res.data
+      this.$toast.success(message)
       if (statusCode === 200) {
         localStorage.setItem('token', data.token)
         localStorage.setItem('userId', data.user.id)
-        this.$toast.success(message)
-        this.$router.push('/user')
+        if (this.$route.query.back) {
+          this.$router.back()
+        } else {
+          this.$router.push('/user')
+        }
       } else {
         this.$toast.fail('登陆失败')
       }

@@ -22,5 +22,14 @@ axios.interceptors.response.use(function (response) {
   }
   return response
 })
-axios.defaults.baseURL = 'http://127.0.0.1:3000'
+const URL = 'http://127.0.0.1:3000'
+axios.defaults.baseURL = URL
+Vue.prototype.$base = URL
 Vue.prototype.$axios = axios
+Vue.prototype.$url = function (url) {
+  if (url.startsWith('http')) {
+    return url
+  } else {
+    return URL + url
+  }
+}
